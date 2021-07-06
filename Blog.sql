@@ -1,0 +1,37 @@
+CREATE DATABASE blog;
+USE blog;
+
+CREATE TABLE user (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    firstname VARCHAR(30) NOT NULL,
+    lastname VARCHAR(30) NOT NULL,
+    email VARCHAR(50),
+    user_name VARCHAR(30) NOT NULL,
+    password VARCHAR(30) NOT NULL,
+    role VARCHAR(30) NOT NULL
+)ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE category (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(30) NOT NULL
+)ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE post (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(75) NOT NULL,
+    content TEXT,
+    id_category INT UNSIGNED,
+    id_user INT UNSIGNED,
+    FOREIGN KEY (id_category) REFERENCES category(id),
+    FOREIGN KEY (id_user) REFERENCES user(id)
+)ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE tag (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(30) NOT NULL
+)ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE post_tag (
+    id_post INT UNSIGNED,
+    id_tag INT UNSIGNED
+)ENGINE=InnoDB;
