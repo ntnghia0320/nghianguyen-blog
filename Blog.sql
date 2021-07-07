@@ -60,7 +60,7 @@ VALUES(1, "Khoa học"),
       (2, "Đời sống"),
       (3, "Công nghệ");
 
-INSERT INTO post(id, title, content, createAt, updateAt, isActive, id_category, id_user)
+INSERT INTO post(id, title, content, create_at, update_at, is_active, id_category, id_user)
 VALUES(1, "Iphone 13 ra mắt", "Nghe Đồn Là: iPhone 13 (iPhone 12s) được trang bị sạc ngược không dây",
             "2020-01-01 21:32:10", "2020-01-01 21:32:10", 0, 3, 1),
       (2, "Hưu cao cổ có cổ cao", "Hưu cao cổ là loài động vật có cổ dài nhất",
