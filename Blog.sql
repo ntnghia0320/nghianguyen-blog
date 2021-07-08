@@ -8,8 +8,8 @@ CREATE TABLE role (
 
 CREATE TABLE user (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    firstname VARCHAR(30) NOT NULL,
-    lastname VARCHAR(30) NOT NULL,
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(30) NOT NULL,
     id_role INT UNSIGNED NOT NULL,
