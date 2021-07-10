@@ -1,0 +1,97 @@
+package com.ntnghia.nghianguyenblog.service.impl;
+
+import com.ntnghia.nghianguyenblog.entity.Post;
+import com.ntnghia.nghianguyenblog.entity.Tag;
+import com.ntnghia.nghianguyenblog.exception.BadRequestException;
+import com.ntnghia.nghianguyenblog.exception.NotFoundException;
+import com.ntnghia.nghianguyenblog.repository.CategoryRepository;
+import com.ntnghia.nghianguyenblog.repository.PostRepository;
+import com.ntnghia.nghianguyenblog.repository.UserRepository;
+import com.ntnghia.nghianguyenblog.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Set;
+
+@Service
+public class PostServiceImpl implements PostService {
+    @Autowired
+    CategoryRepository categoryRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    PostRepository postRepository;
+
+    @Override
+    public List<Post> getAll() {
+        return postRepository.findAll();
+    }
+
+    @Override
+    public Post findById(int id) {
+        if (isIdExist(id)) return postRepository.findById(id).get();
+
+        throw new NotFoundException(String.format("Post id %d not found", id));
+    }
+
+    @Override
+    public List<Post> findByKeyword(String keyword) {
+        return postRepository.findByTitleContainsOrContentContains(keyword, keyword);
+    }
+
+    @Override
+    public Post savePost(Post post, int userId, int categoryId) {
+        if (userRepository.existsById(userId)) {
+            post.setUser(userRepository.findById(userId).get());
+        } else {
+            throw new BadRequestException("Id user not found");
+        }
+
+        if (categoryRepository.existsById(categoryId)) {
+            post.setCategory(categoryRepository.findById(categoryId).get());
+        } else {
+            throw new BadRequestException("Id category not found");
+        }
+        Tag tag1 = Tag.builder().id(1).name("1").build();
+        Tag tag2 = Tag.builder().id(1).name("2").build();
+//        Set<Tag> tags = new Arra<Tag>();
+        return post;
+//        return postRepository.save(post);
+    }
+
+    @Override
+    public Post updatePost(int id, Post post) {
+        if (isIdExist(id)) {
+            Post postOld = postRepository.findById(id).get();
+
+            if (postOld.getTitle().equals(post.getTitle()) && postOld.getContent().equals(post.getContent())) {
+                throw new BadRequestException("Post not change");
+            } else {
+                post.setId(id);
+
+                return postRepository.save(post);
+            }
+        }
+
+        throw new NotFoundException(String.format("Post id %d not found", id));
+    }
+
+    @Override
+    public void deletePost(int id) {
+        if (isIdExist(id)) {
+            postRepository.deleteById(id);
+        } else {
+            throw new NotFoundException(String.format("Post id %d not found", id));
+        }
+
+    }
+
+    private boolean isIdExist(int id) {
+        return postRepository.existsById(id);
+    }
+}
