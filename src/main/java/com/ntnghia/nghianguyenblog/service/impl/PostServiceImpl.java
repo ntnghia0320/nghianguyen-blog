@@ -1,11 +1,13 @@
 package com.ntnghia.nghianguyenblog.service.impl;
 
+import com.ntnghia.nghianguyenblog.entity.Category;
 import com.ntnghia.nghianguyenblog.entity.Post;
 import com.ntnghia.nghianguyenblog.entity.Tag;
 import com.ntnghia.nghianguyenblog.exception.BadRequestException;
 import com.ntnghia.nghianguyenblog.exception.NotFoundException;
 import com.ntnghia.nghianguyenblog.repository.CategoryRepository;
 import com.ntnghia.nghianguyenblog.repository.PostRepository;
+import com.ntnghia.nghianguyenblog.repository.TagRepository;
 import com.ntnghia.nghianguyenblog.repository.UserRepository;
 import com.ntnghia.nghianguyenblog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -23,6 +24,9 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    TagRepository tagRepository;
 
     @Autowired
     PostRepository postRepository;
@@ -57,28 +61,50 @@ public class PostServiceImpl implements PostService {
         } else {
             throw new BadRequestException("Id category not found");
         }
-        Tag tag1 = Tag.builder().id(1).name("1").build();
-        Tag tag2 = Tag.builder().id(1).name("2").build();
-//        Set<Tag> tags = new Arra<Tag>();
-        return post;
-//        return postRepository.save(post);
+
+        List<Tag> tagsRequest = post.getTags();
+        List<Tag> tagsExist = new ArrayList<>();
+
+        for (Tag tag: tagsRequest) {
+            Tag tagTmp = tagRepository.findByName(tag.getName());
+            if(tagTmp != null){
+                tagsExist.add(tagTmp);
+            } else {
+                tagsExist.add(tagRepository.save(tag));
+            }
+        }
+
+        post.setTags(tagsExist);
+
+        return postRepository.save(post);
     }
 
     @Override
     public Post updatePost(int id, Post post) {
-        if (isIdExist(id)) {
-            Post postOld = postRepository.findById(id).get();
+        Category category = categoryRepository.findOneByName(post.getCategory().getName());
 
-            if (postOld.getTitle().equals(post.getTitle()) && postOld.getContent().equals(post.getContent())) {
-                throw new BadRequestException("Post not change");
+        if (category != null) {
+            post.setCategory(category);
+        } else {
+            throw new BadRequestException("Category name not found");
+        }
+
+        List<Tag> tagsRequest = post.getTags();
+        List<Tag> tagsExist = new ArrayList<>();
+
+        for (Tag tag: tagsRequest) {
+            Tag tagTmp = tagRepository.findByName(tag.getName());
+            if(tagTmp != null){
+                tagsExist.add(tagTmp);
             } else {
-                post.setId(id);
-
-                return postRepository.save(post);
+                tagsExist.add(tagRepository.save(tag));
             }
         }
 
-        throw new NotFoundException(String.format("Post id %d not found", id));
+        post.setId(id);
+        post.setTags(tagsExist);
+
+        return postRepository.save(post);
     }
 
     @Override

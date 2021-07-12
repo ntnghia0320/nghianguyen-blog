@@ -1,21 +1,25 @@
 package com.ntnghia.nghianguyenblog.service.impl;
 
 import com.ntnghia.nghianguyenblog.entity.Tag;
+import com.ntnghia.nghianguyenblog.repository.TagRepository;
 import com.ntnghia.nghianguyenblog.service.TagService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class TagServiceImpl implements TagService {
+    @Autowired
+    TagRepository tagRepository;
     @Override
     public List<Tag> getAll() {
-        return null;
+        return tagRepository.findAll();
     }
 
     @Override
     public Tag findById(int id) {
-        return null;
+        return tagRepository.findById(id).get();
     }
 
     @Override

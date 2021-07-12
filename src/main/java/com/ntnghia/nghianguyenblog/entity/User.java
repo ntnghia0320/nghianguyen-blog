@@ -1,6 +1,7 @@
 package com.ntnghia.nghianguyenblog.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -43,11 +44,9 @@ public class User {
     @Column
     @NotNull
     @NotEmpty
+    @JsonIgnore
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="role_id", nullable=false)
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
-    @JsonIgnore
+    @ManyToOne(targetEntity = Role.class)
     private Role role;
 }

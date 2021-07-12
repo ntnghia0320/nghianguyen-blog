@@ -37,8 +37,7 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public Post put(@PathVariable int id, @Valid @RequestBody Post post,
-                    @RequestParam String userId, @RequestParam String categoryId) {
+    public Post put(@PathVariable int id, @Valid @RequestBody Post post) {
         return postService.updatePost(id, post);
     }
 
