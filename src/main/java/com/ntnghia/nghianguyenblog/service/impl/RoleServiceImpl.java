@@ -71,7 +71,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     private boolean isRoleNameExist(String name) {
-        return roleRepository.findOneByName(name) != null;
+        return roleRepository.findByName(name) != null;
     }
 
     private boolean isIdExist(int id) {

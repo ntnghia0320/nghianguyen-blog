@@ -7,6 +7,7 @@ import com.ntnghia.nghianguyenblog.repository.RoleRepository;
 import com.ntnghia.nghianguyenblog.repository.UserRepository;
 import com.ntnghia.nghianguyenblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder encoder;
 
     @Override
     public List<User> getAll() {
@@ -47,7 +51,9 @@ public class UserServiceImpl implements UserService {
             throw new BadRequestException("User email exist");
         }
 
-        user.setRole(roleRepository.findOneByName("user"));
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setRole(roleRepository.findByName("ROLE_USER"));
+
         return userRepository.save(user);
     }
 
@@ -57,7 +63,9 @@ public class UserServiceImpl implements UserService {
             throw new BadRequestException("User email exist");
         }
 
-        user.setRole(roleRepository.findOneByName("admin"));
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setRole(roleRepository.findByName("ROLE_ADMIN"));
+
         return userRepository.save(user);
     }
 

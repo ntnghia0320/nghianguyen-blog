@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
-    Role findOneByName(String name);
+    Role findByName(String name);
     List<Role> findByNameContains(String name);
 }
