@@ -12,6 +12,7 @@ import java.util.List;
 public class TagServiceImpl implements TagService {
     @Autowired
     TagRepository tagRepository;
+
     @Override
     public List<Tag> getAll() {
         return tagRepository.findAll();

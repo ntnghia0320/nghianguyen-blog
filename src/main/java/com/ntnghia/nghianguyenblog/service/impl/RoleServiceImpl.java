@@ -1,6 +1,5 @@
 package com.ntnghia.nghianguyenblog.service.impl;
 
-import com.ntnghia.nghianguyenblog.entity.Category;
 import com.ntnghia.nghianguyenblog.entity.Role;
 import com.ntnghia.nghianguyenblog.exception.BadRequestException;
 import com.ntnghia.nghianguyenblog.exception.NotFoundException;

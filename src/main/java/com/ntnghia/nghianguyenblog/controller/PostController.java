@@ -3,11 +3,13 @@ package com.ntnghia.nghianguyenblog.controller;
 import com.ntnghia.nghianguyenblog.entity.Post;
 import com.ntnghia.nghianguyenblog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/blog/posts")
 public class PostController {
@@ -24,24 +26,27 @@ public class PostController {
         return postService.findById(id);
     }
 
-    @GetMapping(value = "/search", params="keyword")
+    @GetMapping(value = "/search", params = "keyword")
     public List<Post> getByKeyword(@RequestParam("keyword") String keyword) {
         return postService.findByKeyword(keyword);
     }
 
     @PostMapping("/{categoryId}/{userId}")
+    @PreAuthorize("hasRole('USER')")
     public Post post(@PathVariable(value = "categoryId") int categoryId,
                      @PathVariable(value = "userId") int userId,
-                     @Valid @RequestBody Post post){
+                     @Valid @RequestBody Post post) {
         return postService.savePost(post, userId, categoryId);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Post put(@PathVariable int id, @Valid @RequestBody Post post) {
         return postService.updatePost(id, post);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public void delete(@PathVariable int id) {
         postService.deletePost(id);
     }

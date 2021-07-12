@@ -3,11 +3,13 @@ package com.ntnghia.nghianguyenblog.controller;
 import com.ntnghia.nghianguyenblog.entity.Tag;
 import com.ntnghia.nghianguyenblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/blog/tags")
 public class TagController {
@@ -30,16 +32,13 @@ public class TagController {
     }
 
     @PostMapping()
+    @PreAuthorize("hasRole('USER')")
     public Tag post(@Valid @RequestBody Tag task) {
         return tagService.saveTag(task);
     }
 
-    @PutMapping("/{id}")
-    public Tag put(@PathVariable int id, @Valid @RequestBody Tag task) {
-        return tagService.updateTag(id, task);
-    }
-
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public void delete(@PathVariable int id) {
         tagService.deleteTag(id);
     }

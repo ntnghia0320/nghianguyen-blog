@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
                 && userOld.getPassword().equals(userNew.getPassword());
     }
 
-    private boolean isEmailExist(String email){
+    private boolean isEmailExist(String email) {
         return userRepository.findByEmail(email) != null;
     }
 }

@@ -13,8 +13,6 @@ import com.ntnghia.nghianguyenblog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -65,9 +63,9 @@ public class PostServiceImpl implements PostService {
         List<Tag> tagsRequest = post.getTags();
         List<Tag> tagsExist = new ArrayList<>();
 
-        for (Tag tag: tagsRequest) {
+        for (Tag tag : tagsRequest) {
             Tag tagTmp = tagRepository.findByName(tag.getName());
-            if(tagTmp != null){
+            if (tagTmp != null) {
                 tagsExist.add(tagTmp);
             } else {
                 tagsExist.add(tagRepository.save(tag));
@@ -92,9 +90,9 @@ public class PostServiceImpl implements PostService {
         List<Tag> tagsRequest = post.getTags();
         List<Tag> tagsExist = new ArrayList<>();
 
-        for (Tag tag: tagsRequest) {
+        for (Tag tag : tagsRequest) {
             Tag tagTmp = tagRepository.findByName(tag.getName());
-            if(tagTmp != null){
+            if (tagTmp != null) {
                 tagsExist.add(tagTmp);
             } else {
                 tagsExist.add(tagRepository.save(tag));
