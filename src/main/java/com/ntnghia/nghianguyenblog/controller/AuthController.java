@@ -25,13 +25,8 @@ public class AuthController {
         return authService.authUser(loginRequest);
     }
 
-    @PostMapping("/signup-user")
+    @PostMapping("/register")
     public User registerUserRoleUser(@Valid @RequestBody User user) {
-        return userService.saveUserRoleUser(user);
-    }
-
-    @PostMapping("/signup-admin")
-    public User registerUserRoleAdmin(@Valid @RequestBody User user) {
-        return userService.saveUserRoleAdmin(user);
+        return userService.saveUser(user);
     }
 }

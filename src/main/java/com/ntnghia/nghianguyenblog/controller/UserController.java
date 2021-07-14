@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/blog/users")
+@RequestMapping("/api/users")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -34,16 +34,6 @@ public class UserController {
     @GetMapping(value = "/search", params = "email")
     public List<User> getByEmail(@RequestParam("email") String email) {
         return userService.findByEmail(email);
-    }
-
-    @PostMapping("/save-user")
-    public User postSaveUser(@Valid @RequestBody User user) {
-        return userService.saveUserRoleUser(user);
-    }
-
-    @PostMapping("/save-admin")
-    public User postSaveAdmin(@Valid @RequestBody User user) {
-        return userService.saveUserRoleAdmin(user);
     }
 
     @PutMapping("/{id}")

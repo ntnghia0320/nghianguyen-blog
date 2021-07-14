@@ -46,25 +46,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUserRoleUser(User user) {
+    public User saveUser(User user) {
         if (isEmailExist(user.getEmail())) {
             throw new BadRequestException("User email exist");
         }
 
         user.setPassword(encoder.encode(user.getPassword()));
         user.setRole(roleRepository.findByName("ROLE_USER"));
-
-        return userRepository.save(user);
-    }
-
-    @Override
-    public User saveUserRoleAdmin(User user) {
-        if (isEmailExist(user.getEmail())) {
-            throw new BadRequestException("User email exist");
-        }
-
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setRole(roleRepository.findByName("ROLE_ADMIN"));
 
         return userRepository.save(user);
     }

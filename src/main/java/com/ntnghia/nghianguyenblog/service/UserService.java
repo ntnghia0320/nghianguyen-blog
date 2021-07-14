@@ -13,9 +13,7 @@ public interface UserService {
 
     List<User> findByEmail(String email);
 
-    User saveUserRoleUser(User user);
-
-    User saveUserRoleAdmin(User user);
+    User saveUser(User user);
 
     User updateUser(int id, User user);
 

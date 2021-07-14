@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/blog/roles")
+@RequestMapping("/api/roles")
 public class RoleController {
     @Autowired
     private RoleService roleService;
@@ -29,23 +29,5 @@ public class RoleController {
     @GetMapping("/search")
     public List<Role> getByName(@RequestParam String name) {
         return roleService.findByName(name);
-    }
-
-    @PostMapping()
-    @PreAuthorize("hasRole('ADMIN')")
-    public Role post(@Valid @RequestBody Role task) {
-        return roleService.saveRole(task);
-    }
-
-    @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public Role put(@PathVariable int id, @Valid @RequestBody Role task) {
-        return roleService.updateRole(id, task);
-    }
-
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void delete(@PathVariable int id) {
-        roleService.deleteRole(id);
     }
 }

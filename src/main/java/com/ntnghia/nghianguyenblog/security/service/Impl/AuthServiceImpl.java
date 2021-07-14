@@ -37,6 +37,6 @@ public class AuthServiceImpl implements AuthService {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        return new JwtResponse(jwt, userDetails.getUsername(), roles.get(0));
+        return new JwtResponse(userDetails.getId(), jwt, userDetails.getUsername(), roles.get(0));
     }
 }

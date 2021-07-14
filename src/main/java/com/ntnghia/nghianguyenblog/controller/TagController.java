@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/blog/tags")
+@RequestMapping("/api/tags")
 public class TagController {
     @Autowired
     private TagService tagService;

@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/blog/posts")
+@RequestMapping("/api/posts")
 public class PostController {
     @Autowired
     private PostService postService;
@@ -24,6 +24,11 @@ public class PostController {
     @GetMapping("/{id}")
     public Post getById(@PathVariable int id) {
         return postService.findById(id);
+    }
+
+    @GetMapping("/category/{id}")
+    public List<Post> getByCategoryId(@PathVariable int id) {
+        return postService.findByCategoryId(id);
     }
 
     @GetMapping(value = "/search", params = "keyword")
@@ -45,7 +50,7 @@ public class PostController {
         return postService.updatePost(id, post);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/post/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public void delete(@PathVariable int id) {
         postService.deletePost(id);
