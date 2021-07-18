@@ -47,6 +47,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> findByUserId(int id) {
+        return postRepository.findByUserId(id);
+    }
+
+    @Override
     public List<Post> findByKeyword(String keyword) {
         return postRepository.findByTitleContainsOrContentContains(keyword, keyword);
     }

@@ -26,14 +26,9 @@ public class UserController {
         return userService.findById(id);
     }
 
-    @GetMapping(value = "/search", params = "name")
-    public List<User> getByName(@RequestParam("name") String name) {
-        return userService.findByName(name);
-    }
-
-    @GetMapping(value = "/search", params = "email")
-    public List<User> getByEmail(@RequestParam("email") String email) {
-        return userService.findByEmail(email);
+    @GetMapping(value = "/search", params = "keyword")
+    public List<User> getByKeyword(@RequestParam("keyword") String keyword) {
+        return userService.findByKeyword(keyword);
     }
 
     @PutMapping("/{id}")

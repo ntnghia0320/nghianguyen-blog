@@ -36,13 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByName(String name) {
-        return userRepository.findByFirstNameContainsOrLastNameContains(name, name);
-    }
-
-    @Override
-    public List<User> findByEmail(String email) {
-        return userRepository.findByEmailContains(email);
+    public List<User> findByKeyword(String keyword) {
+        return userRepository.findByFirstNameContainsOrLastNameContainsOrEmailContains(keyword, keyword, keyword);
     }
 
     @Override

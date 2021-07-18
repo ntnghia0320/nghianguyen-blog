@@ -8,11 +8,7 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    List<User> findByFirstNameContainsOrLastNameContains(String firstName, String lastName);
-
-    List<User> findByEmailContains(String email);
+    List<User> findByFirstNameContainsOrLastNameContainsOrEmailContains(String firstName, String lastName, String email);
 
     User findByEmail(String email);
-
-    Boolean existsByEmail(String email);
 }

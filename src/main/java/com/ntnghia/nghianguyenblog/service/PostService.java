@@ -12,6 +12,8 @@ public interface PostService {
 
     List<Post> findByCategoryId(int id);
 
+    List<Post> findByUserId(int id);
+
     List<Post> findByKeyword(String keyword);
 
     Post savePost(Post post, int userId, int categoryId);

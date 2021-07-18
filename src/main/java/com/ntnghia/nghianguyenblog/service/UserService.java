@@ -9,9 +9,7 @@ public interface UserService {
 
     User findById(int id);
 
-    List<User> findByName(String name);
-
-    List<User> findByEmail(String email);
+    List<User> findByKeyword(String keyword);
 
     User saveUser(User user);
 

@@ -4,16 +4,16 @@ import lombok.Data;
 
 @Data
 public class JwtResponse {
-    private int idUser;
+    private int userId;
     private String token;
     private String type = "Bearer";
-    private String username;
+    private String email;
     private String role;
 
-    public JwtResponse(int idUser, String jwt, String username, String role) {
-        this.idUser = idUser;
+    public JwtResponse(int userId, String jwt, String email, String role) {
+        this.userId = userId;
         this.token = jwt;
-        this.username = username;
+        this.email = email;
         this.role = role;
     }
 }

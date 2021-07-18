@@ -31,6 +31,11 @@ public class PostController {
         return postService.findByCategoryId(id);
     }
 
+    @GetMapping("/user/{id}")
+    public List<Post> getByUserId(@PathVariable int id) {
+        return postService.findByUserId(id);
+    }
+
     @GetMapping(value = "/search", params = "keyword")
     public List<Post> getByKeyword(@RequestParam("keyword") String keyword) {
         return postService.findByKeyword(keyword);
@@ -50,7 +55,7 @@ public class PostController {
         return postService.updatePost(id, post);
     }
 
-    @DeleteMapping("/post/{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public void delete(@PathVariable int id) {
         postService.deletePost(id);
