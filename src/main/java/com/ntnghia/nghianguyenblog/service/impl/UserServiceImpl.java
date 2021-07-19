@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(User user) {
         if (isEmailExist(user.getEmail())) {
-            throw new BadRequestException("User email exist");
+            throw new BadRequestException("This email address is already being used");
         }
 
         user.setPassword(encoder.encode(user.getPassword()));
