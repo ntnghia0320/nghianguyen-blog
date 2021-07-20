@@ -46,7 +46,7 @@ public class PostController {
     public Post post(@PathVariable(value = "categoryId") int categoryId,
                      @PathVariable(value = "userId") int userId,
                      @Valid @RequestBody Post post) {
-        return postService.savePost(post, userId, categoryId);
+        return postService.savePost(post, categoryId, userId);
     }
 
     @PutMapping("/{id}")

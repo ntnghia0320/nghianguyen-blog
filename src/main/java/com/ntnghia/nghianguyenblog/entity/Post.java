@@ -36,6 +36,9 @@ public class Post {
     @Lob
     private String content;
 
+    @Column
+    private String linkImage;
+
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

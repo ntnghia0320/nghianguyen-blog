@@ -57,7 +57,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post savePost(Post post, int userId, int categoryId) {
+    public Post savePost(Post post, int categoryId, int userId) {
         if (userRepository.existsById(userId)) {
             post.setUser(userRepository.findById(userId).get());
         } else {
