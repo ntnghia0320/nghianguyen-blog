@@ -47,7 +47,7 @@ public class PostController {
     }
 
     @PostMapping("/{categoryId}/{userId}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Post post(@PathVariable(value = "categoryId") int categoryId,
                      @PathVariable(value = "userId") int userId,
                      @Valid @RequestBody Post post) {
